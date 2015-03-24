@@ -1,0 +1,26 @@
+source 'https://rubygems.org'
+
+# 12 Factor applications framework
+gem 'foreman'
+
+group :clients do
+  gem 'httparty'
+  gem 'faraday'
+end
+
+group :frameworks do
+  gem 'rack'
+  gem 'sinatra'
+  gem 'rails'
+  gem 'grape'
+end
+
+group :testing do
+  gem 'rspec'
+  gem 'rack-test'
+end
+
+group :debugging do
+  gem 'pry'
+  gem 'pry-byebug'
+end
