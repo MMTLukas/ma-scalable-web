@@ -1,3 +1,5 @@
+# All commands in these document should be executed in the root directory
+
 Item Tracking System
 ===========================
 
