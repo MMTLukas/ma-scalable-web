@@ -1,48 +1,123 @@
 # Final Challenge
 
 This documents describes how to start and test the four services of this repository. The services are:
-  * item tracking system: holds 
-  * location management system:
-  * report system:
-  * user management:
+  * Item Tracking System
+  * Location Management System
+  * Report System
+  * User Management
 
-All commands in these document should be executed in the root directory.
+All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service 'User Management'.
 
 ## Item Tracking System
 
-Start:  bundle exec rackup -o 0.0.0.0 -p 9292 config_item_tracking_system.ru
-Test:   httparty -v -u paul:thepanther http://localhost:9292/items
+This service allows the users to store, retrieve and delete items
+* GET: /items prints all the stored items
+* POST: /items save an additional item. In the body of this request has to be a json object with following structures and attributes:
+
+```json
+  {
+    "name": "Smiths PC",
+    "location": 1,
+    "id": 1
+  }
+```
+* DELETE: /items/:id deletes an item from the store
+
+### Commands
+
+**Start**
+```shell
+bundle exec rackup -o 0.0.0.0 -p 9292 config_item_tracking_system.ru
+```
+
+**Try it out**
+```shell
+        httparty -v -u paul:thepanther http://localhost:9292/items
         httparty -v -u paul:thepanther -a post '{"name":"PC","location":"1"}' http://localhost:9292/items
         httparty -v -u paul:thepanther -a delete http://localhost:9292/items/1
-
+```
 
 ## Location Management System
 
-Start:  bundle exec rackup -o 0.0.0.0 -p 9393 config_location_management_system.ru
-Test:   httparty -v -u paul:thepanther http://localhost:9393/locations
+This service allows the users to store, retrieve and delete locations
+* GET: /locations prints all the stored items
+* POST: /locations save an additional location. In the body of this request has to be a json object with following structures and attributes:
+
+```json
+  {
+    "name": "University of Applied Science Salzburg",
+    "address": "Urstein Sued 1, 5020 Salzburg, Austria",
+    "id": 1
+  }
+```
+* DELETE: /locations/:id deletes an location from the store
+
+### Commands
+
+**Start**
+```shell
+bundle exec rackup -o 0.0.0.0 -p 9393 config_location_management_system.ru
+```
+
+**Try it out**
+```shell
+        httparty -v -u paul:thepanther http://localhost:9393/locations
         httparty -v -u paul:thepanther -a post '{"name":"FH","address":"urstein"}' http://localhost:9393/locations
         httparty -v -u paul:thepanther -a delete http://localhost:9393/locations/1
-
+```
 
 ## Report System
 
-**Start**
+This system combines the two services before. A report exist of all stored locations, extended with the items at this location. The output has the following structure:
 
-```shell
-  bundle exec rackup -o 0.0.0.0 -p 9494 config_report_system.ru
+```json
+[
+  {
+    "name": "University of Applied Science Salzburg",
+    "address": "Urstein Sued 1, 5020 Salzburg, Austria",
+    "id": 1,
+    "items": [
+      {
+        "name": "Smiths PC",
+        "location": 1,
+        "id": 1
+      },
+      {
+        "name": "Mosers PC",
+        "location": 1,
+        "id": 2
+      }
+    ]
+  },
+  ...
+]
 ```
 
-**Test**
+### Commands
 
+**Start**
+```shell
+bundle exec rackup -o 0.0.0.0 -p 9494 config_report_system.ru
+```
+
+**Try it out**
 ```shell
 httparty -v -u paul:thepanther http://localhost:9494/reports/by-location
 ```
 
 ## User Management System
 
-Start:  bundle exec rackup -o 0.0.0.0 -p 9595 config_user_management_system.ru
-Test:   httparty -v -u paul:thepanther "http://localhost:9595/user
+### Commands
 
+**Start**
+```shell
+bundle exec rackup -o 0.0.0.0 -p 9595 config_user_management_system.ru
+```
+
+**Try it out**
+```shell
+   httparty -v -u paul:thepanther "http://localhost:9595/user
+```
 
 
 
