@@ -1,7 +1,16 @@
 require 'sinatra/base'
 require 'json'
 
-class App < Sinatra::Base
+##
+# This class represents an item store
+# 
+# @description	It provides 3 possible request methods: GET, POST and DELETE
+# 							A user has to authentificate before using this methods
+##
+
+class ItemTrackingSystem < Sinatra::Base
+
+	# objects which stores the items
 	items = [
 	  {
 	    "name": "Johannas PC",
@@ -21,6 +30,9 @@ class App < Sinatra::Base
 	]
 	length = items.length
 
+	# before accessing the class methods the user has to authentificate
+	# this handles the authentification module by forwarding the auth headers
+	# to the user management system
 	before do
   	if Authentification.request(env).code != 200
   		status 403
@@ -28,6 +40,7 @@ class App < Sinatra::Base
   	end
 	end
 
+	# print all items
 	get '/items' do
   	if request.body.read.length == 0
 			JSON.pretty_generate items
@@ -36,6 +49,8 @@ class App < Sinatra::Base
 		end
   end
 
+  # create a new item - if name and location attribute exists
+  # add a programmatically id to the item
   post '/items' do
   	body = request.body.read
 
@@ -63,6 +78,7 @@ class App < Sinatra::Base
 		end
   end
 
+  # deletes an item from the store
   delete '/items/:id' do
   	if params[:id] && request.body.read.length == 0
   		items.delete_if { |item| item[:id] == params[:id].to_i }

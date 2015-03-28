@@ -5,7 +5,7 @@ require_relative './item_tracking_client'
 require_relative './location_management_client'
 require_relative '../authentification'
 
-class App < Sinatra::Base
+class ReportSystem < Sinatra::Base
 
 	before do
   	if Authentification.request(env).code != 200

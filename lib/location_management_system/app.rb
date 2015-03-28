@@ -1,7 +1,16 @@
 require 'sinatra/base'
 require 'json'
 
-class App < Sinatra::Base
+##
+# This class represents an item store
+# 
+# @description	It provides 3 possible request methods: GET, POST and DELETE
+# 							A user has to authentificate before using this methods
+##
+
+class LocationManagementSystem < Sinatra::Base
+
+	# objects which stores the locations
 	locations = [
 	  {
 	    "name": "Office Alexanderstraße",
@@ -21,6 +30,9 @@ class App < Sinatra::Base
 	]
 	length = locations.length
 
+	# before accessing the class methods the user has to authentificate
+	# this handles the authentification module by forwarding the auth headers
+	# to the user management system
 	before do
   	if Authentification.request(env).code != 200
   		status 403
@@ -28,6 +40,7 @@ class App < Sinatra::Base
   	end
 	end
 
+	# print all locations
 	get '/locations' do
   	if request.body.read.length == 0
 			JSON.pretty_generate locations
@@ -36,6 +49,8 @@ class App < Sinatra::Base
 		end
   end
 
+  # create a new location - if name and address attribute exists
+  # add a programmatically id to the item
   post '/locations' do
   	body = request.body.read
 
@@ -63,6 +78,7 @@ class App < Sinatra::Base
 		end
   end
 
+  # deletes an location from the store
   delete '/locations/:id' do
   	if params[:id] && request.body.read.length == 0
   		locations.delete_if { |location| location[:id] == params[:id].to_i }

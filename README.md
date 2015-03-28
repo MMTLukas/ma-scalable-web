@@ -6,10 +6,18 @@ This documents describes how to start and test the four services of this reposit
   * Report System
   * User Management
 
-All services build up on [sinatra](http://www.sinatrarb.com/). All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service **User Management**. To start the services on your system make sure you have installed all necessary plugins with following command:
+All services build up on [sinatra](http://www.sinatrarb.com/). All commands in this document should be executed in the root directory of the project. Every request to any resource of the services has to be authorizied from the service **User Management**. To start the services on your system make sure you have installed all necessary plugins with following command:
 ```shell
 bundle install
 ```
+
+### Directory content
+./                                  # place of all config.ru files, the readme.md and the gemfile
+lib/                                # directory of the four services
+  item_tracking_system/             # system which stores items
+  location_management_system/       # system which stores locations
+  report_system/                    # system which combines items and locations
+  user_management_system/           # system which authentificates
 
 ## Item Tracking System
 
