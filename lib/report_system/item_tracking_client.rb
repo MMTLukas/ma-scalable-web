@@ -1,7 +1,7 @@
 require 'httparty'
 
 ##
-# This class represents an client for the report system for accessing the ItemTrackingSystem
+# This class represents an client for the ReportSystem for accessing the ItemTrackingSystem
 ##
 
 class ItemTrackingClient
