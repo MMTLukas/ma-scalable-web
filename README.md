@@ -8,8 +8,7 @@ This documents describes how to start and test the four services of this reposit
 
 All commands in these document should be executed in the root directory.
 
-Item Tracking System
-===========================
+## Item Tracking System
 
 Start:  bundle exec rackup -o 0.0.0.0 -p 9292 config_item_tracking_system.ru
 Test:   httparty -v -u paul:thepanther http://localhost:9292/items
@@ -17,8 +16,7 @@ Test:   httparty -v -u paul:thepanther http://localhost:9292/items
         httparty -v -u paul:thepanther -a delete http://localhost:9292/items/1
 
 
-Location Management System
-===========================
+## Location Management System
 
 Start:  bundle exec rackup -o 0.0.0.0 -p 9393 config_location_management_system.ru
 Test:   httparty -v -u paul:thepanther http://localhost:9393/locations
@@ -26,15 +24,19 @@ Test:   httparty -v -u paul:thepanther http://localhost:9393/locations
         httparty -v -u paul:thepanther -a delete http://localhost:9393/locations/1
 
 
-Report System
-===========================
+## Report System
 
-Start:  bundle exec rackup -o 0.0.0.0 -p 9494 config_report_system.ru
-Test:   httparty -v -u paul:thepanther http://localhost:9494/reports/by-location
+**Start
+```shell
+  bundle exec rackup -o 0.0.0.0 -p 9494 config_report_system.ru
+```
 
+**Test
+```shell
+httparty -v -u paul:thepanther http://localhost:9494/reports/by-location
+```
 
-User Management System
-===========================
+## User Management System
 
 Start:  bundle exec rackup -o 0.0.0.0 -p 9595 config_user_management_system.ru
 Test:   httparty -v -u paul:thepanther "http://localhost:9595/user
