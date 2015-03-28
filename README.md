@@ -68,7 +68,7 @@ httparty -v -u paul:thepanther -a delete http://localhost:9393/locations/1
 
 ## Report System
 
-This system combines the two services before. A report exist of all stored locations, extended with the items at this location. The only possible url is /reports/by-location The output has the following structure:
+This system combines the two services before. A report exist of all stored locations, extended with the items at this location. The only possible url is **/reports/by-location** The output has the following structure:
 
 ```json
 [
@@ -126,17 +126,3 @@ bundle exec rackup -o 0.0.0.0 -p 9595 config_user_management_system.ru
 ```shell
 httparty -v -u paul:thepanther "http://localhost:9595/user
 ```
-
-
-
-
-
-
-
-
-# Final Challenge
-## Intro
-* A user management system
-## The Systems
-### User Management
-**GET /user**
