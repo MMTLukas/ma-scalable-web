@@ -6,7 +6,10 @@ This documents describes how to start and test the four services of this reposit
   * Report System
   * User Management
 
-All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service **User Management**.
+All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service **User Management**. To start the services on your system make sure you have installed all necessary plugins with following command:
+```shell
+bundle install
+```
 
 ## Item Tracking System
 
