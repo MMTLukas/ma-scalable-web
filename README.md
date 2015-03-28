@@ -6,13 +6,13 @@ This documents describes how to start and test the four services of this reposit
   * Report System
   * User Management
 
-All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service 'User Management'.
+All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service **User Management**.
 
 ## Item Tracking System
 
 This service allows the users to store, retrieve and delete items
-* GET: /items prints all the stored items
-* POST: /items save an additional item. In the body of this request has to be a json object with following structures and attributes:
+* **GET**: /items prints all the stored items
+* **POST**: /items save an additional item. In the body of this request has to be a json object with following structures and attributes:
 
 ```json
   {
@@ -40,8 +40,8 @@ httparty -v -u paul:thepanther -a delete http://localhost:9292/items/1
 ## Location Management System
 
 This service allows the users to store, retrieve and delete locations
-* GET: /locations prints all the stored items
-* POST: /locations save an additional location. In the body of this request has to be a json object with following structures and attributes:
+* **GET**: /locations prints all the stored items
+* **POST**: /locations save an additional location. In the body of this request has to be a json object with following structures and attributes:
 
 ```json
   {
@@ -50,7 +50,7 @@ This service allows the users to store, retrieve and delete locations
     "id": 1
   }
 ```
-* DELETE: /locations/:id deletes an location from the store
+* **DELETE**: /locations/:id deletes an location from the store
 
 ### Commands
 
@@ -107,7 +107,7 @@ httparty -v -u paul:thepanther http://localhost:9494/reports/by-location
 
 ## User Management System
 
-This service handles the from the users served authentification data. As said before, the user needs for every request to any of these services a valid username and password combination. Three combinations are allowed: 
+This service handles the from the users served authentification data. The url for the service is **/user**. As said before, the user needs for every request to any of the four services a valid username and password combination. Three combinations are allowed: 
 
 User  | Password
 ----- | -------------
