@@ -12,12 +12,14 @@ bundle install
 ```
 
 ### Directory content
+```doc
 ./                                  # place of all config.ru files, the readme.md and the gemfile
 lib/                                # directory of the four services
   item_tracking_system/             # system which stores items
   location_management_system/       # system which stores locations
   report_system/                    # system which combines items and locations
   user_management_system/           # system which authentificates
+```
 
 ## Item Tracking System
 
