@@ -6,7 +6,7 @@ This documents describes how to start and test the four services of this reposit
   * Report System
   * User Management
 
-All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service **User Management**. To start the services on your system make sure you have installed all necessary plugins with following command:
+All services build up on [sinatra](http://www.sinatrarb.com/). All commands in these document should be executed in the root directory. Every request to any resource has to be authorizied from the last service **User Management**. To start the services on your system make sure you have installed all necessary plugins with following command:
 ```shell
 bundle install
 ```
@@ -24,7 +24,7 @@ This service allows the users to store, retrieve and delete items
     "id": 1
   }
 ```
-* DELETE: /items/:id deletes an item from the store
+* **DELETE**: /items/:id deletes an item from the store
 
 ### Commands
 
