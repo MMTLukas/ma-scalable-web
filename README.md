@@ -46,7 +46,7 @@ bundle exec rackup -o 0.0.0.0 -p 9292 config_item_tracking_system.ru
 **Try it out**
 ```shell
 httparty -v -u paul:thepanther http://localhost:9292/items
-httparty -v -u paul:thepanther -a post '{"name":"PC","location":"1"}' http://localhost:9292/items
+httparty -v -u paul:thepanther -a post -d '{"name":"PC","location":"1"}' http://localhost:9292/items
 httparty -v -u paul:thepanther -a delete http://localhost:9292/items/1
 ```
 
@@ -75,7 +75,7 @@ bundle exec rackup -o 0.0.0.0 -p 9393 config_location_management_system.ru
 **Try it out**
 ```shell
 httparty -v -u paul:thepanther http://localhost:9393/locations
-httparty -v -u paul:thepanther -a post '{"name":"FH","address":"urstein"}' http://localhost:9393/locations
+httparty -v -u paul:thepanther -a post -d '{"name":"FH","address":"urstein"}' http://localhost:9393/locations
 httparty -v -u paul:thepanther -a delete http://localhost:9393/locations/1
 ```
 

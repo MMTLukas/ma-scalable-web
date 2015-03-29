@@ -88,16 +88,9 @@ describe ReportSystem do
       }]
 
       before do
-        # TODO
+        items_response = exec "httparty -v -u paul:thepanther -a post -d '{\"name\":\"Smiths PC\",\"location\":\"0\"}' http://localhost:9292/items"
+        locations_response = exec "httparty -v -u paul:thepanther -a post -d '{\"name\":\"FHS\",\"address\":\"Urstein Sued 1\"}' http://localhost:9393/locations"
         basic_authorize("paul", "thepanther")
-
-        # this solution doesn't work, because post responses with 404
-        post "http://localhost:9292/items", items
-        # puts last_response.status # prints 404
-
-        # this solution also doesn't work, because there is no authentification
-        HTTParty.post("http://localhost:9393/locations", body: locations)
-
         get '/reports/by-location'
       end
 
