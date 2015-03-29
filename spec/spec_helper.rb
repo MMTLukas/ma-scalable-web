@@ -16,6 +16,12 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require_relative './lib/item_tracking_system/item_tracking_system.rb'
+require_relative './lib/location_management_system/location_management_system.rb'
+require_relative './lib/report_system/report_system.rb'
+require_relative './lib/user_management_system/user_management_system.rb'
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
