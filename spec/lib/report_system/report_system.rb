@@ -55,30 +55,56 @@ describe ReportSystem do
       end
     end
 
-    describe "authorized filling and requesting reports" do
-      item = {
+    describe "combine location and item" do
+      items = [{
         "name": "Smiths PC",
-        "location": 0
-      }
-      location = {
+        "location": 0,
+        "id": 0
+      }]
+      locations = [{
         "name": "FHS",
-        "address": "Urstein Sued 1"
-      }
+        "address": "Urstein Sued 1",
+        "id": 0
+      }]
+
+      it 'should work' do
+        reports = locations
+        reports[0]["items"] = items;
+        reportSystem = ReportSystem.new!
+        expect(reportSystem.combine(locations, items)).to eq(reports)
+      end
+    end
+
+    describe "authorized filling and requesting reports" do
+      items = [{
+        "name": "Smiths PC",
+        "location": 0,
+        "id": 0
+      }]
+      locations = [{
+        "name": "FHS",
+        "address": "Urstein Sued 1",
+        "id": 0
+      }]
 
       before do
         # TODO
         basic_authorize("paul", "thepanther")
 
-        HTTParty.post("http://localhost:9292/items", body: item);
-        HTTParty.post("http://localhost:9393/locations", body: location);
+        # this solution doesn't work, because post responses with 404
+        post "http://localhost:9292/items", items
+        # puts last_response.status # prints 404
+
+        # this solution also doesn't work, because there is no authentification
+        HTTParty.post("http://localhost:9393/locations", body: locations)
 
         get '/reports/by-location'
       end
 
       it 'should response with the correct object' do
-        object = location
-        object[:items] = item
-        expect(last_response.body).to eq(object)
+        reports = locations
+        reports[0]["items"] = items;
+        expect(last_response.body).to eq(reports)
       end
     end
   end
