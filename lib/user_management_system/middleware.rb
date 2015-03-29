@@ -18,7 +18,7 @@ class Middleware
 		if env['HTTP_AUTHORIZATION']
 				username, password = Base64.decode64(env['HTTP_AUTHORIZATION'].gsub(/^Basic /, '')).split(":")
 
-			if isAuthenticated(username, password)
+			if isAuthenticate(username, password)
 				@app.call(env)
 			else
 				[403, {'Content-Type' => 'text/plain'}, ['']]
@@ -29,7 +29,7 @@ class Middleware
 	end
 
 	# Helps to authenticate users credentials
-	def isAuthenticated(username, password)
+	def isAuthenticate(username, password)
 		username == "wanda" && password == "partyhard2000" ||
 		username == "paul" && password == "thepanther" ||
 		username == "anne" && password == "flytothemoon"

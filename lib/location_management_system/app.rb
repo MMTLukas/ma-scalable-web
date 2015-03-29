@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'json'
 
+require_relative '../authentification'
+
 ##
 # This class represents an item store
 # 
@@ -11,39 +13,24 @@ require 'json'
 class LocationManagementSystem < Sinatra::Base
 
 	# objects which stores the locations
-	locations = [
-	  {
-	    "name": "Office Alexanderstraße",
-	    "address": "Alexanderstraße 45, 33853 Bielefeld, Germany",
-	    "id": 0
-	  },
-	  {
-	    "name": "Warehouse Hamburg",
-	    "address": "Gewerbestraße 1, 21035 Hamburg, Germany",
-	    "id": 1
-	  },
-	  {
-	    "name": "Headquarters Salzburg",
-	    "address": "Mozart Gasserl 4, 13371 Salzburg, Austria",
-	    "id": 2
-	  }
-	]
+	locations = []
 	length = locations.length
 
 	# before accessing the class methods the user has to authentificate
 	# this handles the authentification module by forwarding the auth headers
 	# to the user management system
-	before do
-  	if Authentification.request(env).code != 200
-  		status 403
-  		halt
-  	end
-	end
+  before do
+    code = Authentification.request(env).code
+    if code != 200
+      status code
+      halt
+    end
+  end
 
 	# print all locations
 	get '/locations' do
   	if request.body.read.length == 0
-			JSON.pretty_generate locations
+			JSON.dump locations
 		else
 			status 400
 		end
@@ -70,7 +57,7 @@ class LocationManagementSystem < Sinatra::Base
 		  	length = locations.length
 
 		  	status 201
-		  	body JSON.pretty_generate location
+		  	body JSON.dump location
 		  end
 		else
 				status 400

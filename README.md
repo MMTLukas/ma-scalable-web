@@ -1,10 +1,10 @@
 # Final Challenge
 
 This documents describes how to start and test the four services of this repository. The services are:
-  * Item Tracking System
-  * Location Management System
-  * Report System
-  * User Management
+  * Item Tracking System (Port 9292)
+  * Location Management System (Port 9393)
+  * Report System (Port 9494)
+  * User Management (Port 9595)
 
 All services build up on [sinatra](http://www.sinatrarb.com/). All commands in this document should be executed in the root directory of the project. Every request to any resource of the services has to be authorizied from the service **User Management**. To start the services on your system make sure you have installed all necessary plugins with following command:
 ```shell
@@ -139,3 +139,21 @@ bundle exec rackup -o 0.0.0.0 -p 9595 config_user_management_system.ru
 ```shell
 httparty -v -u paul:thepanther "http://localhost:9595/user
 ```
+
+## [12 Factor App](http://12factor.net/)
+
+This app try to satisfy the 12 factor rules
+* Codebase: The codebases is stored in a version control system
+* Dependencies: The Gem file explicitly declare dependencies and the system don't assume existing system tools, ? have only one .ru file ?
+* Config: ? Store Username and Password in the enviroments ?
+* Backing Services: -
+* Build, release, run: - 
+* Process: The processes are stateless and share nothing, ? execute the app as one ?
+* Port binding: The services communicates via a simple url, ? one app so it is self-contained ?
+* Concurrency: ? all four processes handle specific needs ?
+* Disposability: -, ? application crashe, it should start back up ?
+* Dev/prod parity: Because there is no production releases, the dev and the production stage are similar
+* Logs: ? log something ?
+* Admin processes: Because there is only one stage, the tests enviroment don't differs to the other stages
+
+? 30 Punkte ?

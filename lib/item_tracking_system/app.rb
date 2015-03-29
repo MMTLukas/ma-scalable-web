@@ -1,6 +1,8 @@
 require 'sinatra/base'
 require 'json'
 
+require_relative '../authentification'
+
 ##
 # This class represents an item store
 # 
@@ -11,39 +13,24 @@ require 'json'
 class ItemTrackingSystem < Sinatra::Base
 
 	# objects which stores the items
-	items = [
-	  {
-	    "name": "Johannas PC",
-	    "location": 1,
-	    "id": 456
-	  },
-	  {
-	    "name": "Johannas desk",
-	    "location": 123,
-	    "id": 457
-	  },
-	  {
-	    "name": "Lobby chair #1",
-	    "location": 2,
-	    "id": 501
-	  }
-	]
+	items = []
 	length = items.length
 
 	# before accessing the class methods the user has to authentificate
 	# this handles the authentification module by forwarding the auth headers
 	# to the user management system
-	before do
-  	if Authentification.request(env).code != 200
-  		status 403
-  		halt
-  	end
-	end
+  before do
+    code = Authentification.request(env).code
+    if code != 200
+      status code
+      halt
+    end
+  end
 
 	# print all items
 	get '/items' do
   	if request.body.read.length == 0
-			JSON.pretty_generate items
+			JSON.dump items
 		else
 			status 400
 		end
@@ -70,7 +57,7 @@ class ItemTrackingSystem < Sinatra::Base
 		  	length = items.length
 
 		  	status 201
-		  	body JSON.pretty_generate item
+		  	body JSON.dump item
 		  end
 		else
 				status 400
