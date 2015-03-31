@@ -145,16 +145,10 @@ describe LocationManagementSystem do
         "name": "FHS",
         "address": "Urstein Sued 1"
       }
-      currentStorage = ""
 
       before do
         basic_authorize("paul", "thepanther")
-
-        get "/locations"
-        currentStorage = last_response.body
-
         post "/locations", JSON.dump(location)
-
         id = JSON.parse(last_response.body)["id"]
         delete "/locations/" + id.to_s
       end
