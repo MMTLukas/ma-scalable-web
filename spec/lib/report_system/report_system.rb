@@ -88,8 +88,8 @@ describe ReportSystem do
       }]
 
       before do
-        items_response = exec "httparty -v -u paul:thepanther -a post -d '{\"name\":\"Smiths PC\",\"location\":\"0\"}' http://localhost:9292/items"
-        locations_response = exec "httparty -v -u paul:thepanther -a post -d '{\"name\":\"FHS\",\"address\":\"Urstein Sued 1\"}' http://localhost:9393/locations"
+        system('httparty -u paul:thepanther -a post -d \'{"name":"Smiths PC","location":0}\' http://localhost:9292/items')
+        system('httparty -u paul:thepanther -a post -d \'{"name":"FHS","address":"Urstein Sued 1"}\' http://localhost:9393/locations')
         basic_authorize("paul", "thepanther")
         get '/reports/by-location'
       end
@@ -97,7 +97,17 @@ describe ReportSystem do
       it 'should response with the correct object' do
         reports = locations
         reports[0]["items"] = items;
-        expect(last_response.body).to eq(reports)
+        body = JSON.parse last_response.body
+
+        expect(body[0][:name]).to eq(reports[0]["name"])
+        expect(body[0][:address]).to eq(reports[0]["address"])
+        expect(body[0]["items"][0][:name]).to eq(reports[0]["items"][0]["name"])
+        expect(body[0]["items"][0][:location]).to eq(reports[0]["items"][0]["location"])              
+      end
+
+      after do
+        system('httparty -u paul:thepanther -a delete http://localhost:9292/items/0')
+        system('httparty -u paul:thepanther -a delete http://localhost:9393/locations/0')
       end
     end
   end

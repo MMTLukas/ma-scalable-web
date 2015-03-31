@@ -1,6 +1,6 @@
-# Final Challenge
+# Scalable Web Architectures - Challenge
 
-This documents describes how to start and test the four services of this repository. The services are:
+TThis documents describes how to start and test the four services of this repository. The services are:
   * Item Tracking System (Port 9292)
   * Location Management System (Port 9393)
   * Report System (Port 9494)
@@ -19,6 +19,8 @@ lib/                                # directory of the four services
   location_management_system/       # system which stores locations
   report_system/                    # system which combines items and locations
   user_management_system/           # system which authentificates
+spec/lib/                           # contains the specs of the services in the lib directory
+
 ```
 
 ## Item Tracking System
@@ -30,8 +32,7 @@ This service allows the users to store, retrieve and delete items
 ```json
   {
     "name": "Smiths PC",
-    "location": 1,
-    "id": 1
+    "location": 1
   }
 ```
 * **DELETE**: /items/:id deletes an item from the store
@@ -59,8 +60,7 @@ This service allows the users to store, retrieve and delete locations
 ```json
   {
     "name": "University of Applied Science Salzburg",
-    "address": "Urstein Sued 1, 5020 Salzburg, Austria",
-    "id": 1
+    "address": "Urstein Sued 1, 5020 Salzburg, Austria"
   }
 ```
 * **DELETE**: /locations/:id deletes an location from the store
@@ -142,18 +142,10 @@ httparty -v -u paul:thepanther "http://localhost:9595/user
 
 ## [12 Factor App](http://12factor.net/)
 
-This app try to satisfy the 12 factor rules
+This app try to satisfy the 12 factor rules, some of them are:
 * Codebase: The codebases is stored in a version control system
-* Dependencies: The Gem file explicitly declare dependencies and the system don't assume existing system tools, ? have only one .ru file ?
-* Config: ? Store Username and Password in the enviroments ?
-* Backing Services: -
-* Build, release, run: - 
-* Process: The processes are stateless and share nothing, ? execute the app as one ?
-* Port binding: The services communicates via a simple url, ? one app so it is self-contained ?
-* Concurrency: ? all four processes handle specific needs ?
-* Disposability: -, ? application crashe, it should start back up ?
-* Dev/prod parity: Because there is no production releases, the dev and the production stage are similar
-* Logs: ? log something ?
-* Admin processes: Because there is only one stage, the tests enviroment don't differs to the other stages
-
-? 30 Punkte ?
+* Dependencies: The gemfile explicitly declares dependencies and the system don't assume existing system tools
+* Process: The processes are stateless and share nothing
+* Port binding: The services communicates via a simple url with a port
+* Dev/prod parity: There is no production releases, there can't be different enviroments
+* Admin processes: Because there is only one stage, the tests enviroment don't differs to some other stages

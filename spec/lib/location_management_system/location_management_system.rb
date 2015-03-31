@@ -104,7 +104,6 @@ describe LocationManagementSystem do
         "name": "FHS",
         "address": "Urstein Sued 1"
       }
-      cnt = 0;
 
       before do
         basic_authorize("paul", "thepanther")
@@ -112,15 +111,13 @@ describe LocationManagementSystem do
       end
 
       after do
-        cnt += 1
-      end
-
-      it 'should be allowed' do
-        expect(last_response.status).to be(201)
+        delete '/locations/0'
       end
 
       it 'should response with location inserted' do
-        location["id"] = cnt
+        expect(last_response.status).to be(201)
+
+        location["id"] = 0
         body = JSON.parse last_response.body
         expect(body[:id]).to eq(location[:id])
         expect(body["name"]).to eq(location[:name])
@@ -130,7 +127,7 @@ describe LocationManagementSystem do
 
     describe "unauthorized delete" do
       it 'should be denied' do
-        delete "/locations/0"
+        delete "/locations/99"
         expect(last_response.status).to be(401)
       end
     end
@@ -138,12 +135,12 @@ describe LocationManagementSystem do
     describe "authorized delete with wrong id but correct credentials" do
       it 'should be allowed but show there is no resource' do
         basic_authorize("paul", "thepanther")
-        delete "/locations"
+        delete "/locations/99"
         expect(last_response.status).to be(404)
       end
     end
 
-    describe "authorized delete with wrong id but correct credentials" do
+    describe "authorized delete with correct id and credentials" do
       location =  {
         "name": "FHS",
         "address": "Urstein Sued 1"

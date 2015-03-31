@@ -29,12 +29,12 @@ class ItemTrackingSystem < Sinatra::Base
 
 	# print all items
 	get '/items' do
-  	if request.body.read.length == 0
-			JSON.dump items
-		else
-			status 400
-		end
-  end
+   if request.body.read.length == 0
+     JSON.dump items
+   else
+     status 400
+   end
+ end
 
   # create a new item - if name and location attribute exists
   # add a programmatically id to the item
@@ -44,26 +44,26 @@ class ItemTrackingSystem < Sinatra::Base
   	if body.length > 0
   		body = JSON.parse body
 
-	  	if body["name"].nil? || body["location"].nil?
-	  		status 400
-	  		body JSON.dump({"error": "item need name and location as attribute"})
-  		else
-  			item = {
-  				"name": body["name"],
-  				"location": body["location"],
-  				"id": length
-  			}
-		  	items.push item
-		  	length = items.length
+      if body["name"].nil? || body["location"].nil?
+       status 400
+       body JSON.dump({"error": "item need name and location as attribute"})
+     else
+      item = {
+        "name": body["name"],
+        "location": body["location"],
+        "id": length
+      }
+      items.push item
+      length = items.length
 
-		  	status 201
-		  	body JSON.dump item
-		  end
-		else
-				status 400
-	  		body JSON.dump({"error": "item with name and location as attribute needed"})
-		end
+      status 201
+      body JSON.dump item
+    end
+  else
+    status 400
+    body JSON.dump({"error": "item with name and location as attribute needed"})
   end
+end
 
   # deletes an item from the store
   delete '/items/:id' do

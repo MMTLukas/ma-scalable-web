@@ -104,7 +104,6 @@ describe ItemTrackingSystem do
         "name": "Smiths PC",
         "location": 1
       }
-      cnt = 0;
 
       before do
         basic_authorize("paul", "thepanther")
@@ -112,15 +111,13 @@ describe ItemTrackingSystem do
       end
 
       after do
-        cnt += 1
-      end
-
-      it 'should be allowed' do
-        expect(last_response.status).to be(201)
+        delete '/items/0'
       end
 
       it 'should response with item inserted' do
-        item["id"] = cnt
+        expect(last_response.status).to be(201)
+
+        item["id"] = 0
         body = JSON.parse last_response.body
         expect(body[:id]).to eq(item[:id])
         expect(body["name"]).to eq(item[:name])
@@ -130,7 +127,7 @@ describe ItemTrackingSystem do
 
     describe "unauthorized delete" do
       it 'should be denied' do
-        delete "/items/0"
+        delete "/items/99"
         expect(last_response.status).to be(401)
       end
     end
@@ -138,7 +135,7 @@ describe ItemTrackingSystem do
     describe "authorized delete with wrong id but correct credentials" do
       it 'should be allowed but show there is no resource' do
         basic_authorize("paul", "thepanther")
-        delete "/items"
+        delete "/items/99"
         expect(last_response.status).to be(404)
       end
     end

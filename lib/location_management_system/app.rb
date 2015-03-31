@@ -29,12 +29,12 @@ class LocationManagementSystem < Sinatra::Base
 
 	# print all locations
 	get '/locations' do
-  	if request.body.read.length == 0
-			JSON.dump locations
-		else
-			status 400
-		end
-  end
+   if request.body.read.length == 0
+     JSON.dump locations
+   else
+     status 400
+   end
+ end
 
   # create a new location - if name and address attribute exists
   # add a programmatically id to the item
@@ -44,26 +44,26 @@ class LocationManagementSystem < Sinatra::Base
   	if body.length > 0
   		body = JSON.parse body
 
-	  	if body["name"].nil? || body["address"].nil?
-	  		status 400
-	  		body JSON.dump({"error": "location need name and address as attribute"})
-  		else
-  			location = {
-  				"name": body["name"],
-  				"address": body["address"],
-  				"id": length
-  			}
-		  	locations.push location
-		  	length = locations.length
+      if body["name"].nil? || body["address"].nil?
+       status 400
+       body JSON.dump({"error": "location need name and address as attribute"})
+     else
+       location = {
+        "name": body["name"],
+        "address": body["address"],
+        "id": length
+      }
+      locations.push location
+      length = locations.length
 
-		  	status 201
-		  	body JSON.dump location
-		  end
-		else
-				status 400
-	  		body JSON.dump({"error": "location with name and address as attribute needed"})
-		end
+      status 201
+      body JSON.dump location
+    end
+  else
+    status 400
+    body JSON.dump({"error": "location with name and address as attribute needed"})
   end
+end
 
   # deletes an location from the store
   delete '/locations/:id' do
