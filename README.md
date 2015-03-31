@@ -23,6 +23,17 @@ spec/lib/                           # contains the specs of the services in the 
 
 ```
 
+### Tests
+
+**ATTENTION**: For this you have to start the Item Tracking, the Location Management and the User Management System. For informations how to start this services, scroll to the different sections.
+
+To test all services at once, you can run the following command:
+```shell
+rspec
+```
+This should give you a overview of serveral specs testing the services.
+
+
 ## Item Tracking System
 
 This service allows the users to store, retrieve and delete items
