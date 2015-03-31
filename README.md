@@ -25,7 +25,7 @@ spec/lib/                           # contains the specs of the services in the 
 
 ### Tests
 
-**ATTENTION**: For this you have to start the Item Tracking, the Location Management and the User Management System. For informations how to start this services, scroll to the different sections.
+**ATTENTION**: For this you have to start the Item Tracking, the Location Management and the User Management System. For informations how to start this services, scroll to the different sections in this README.MD or check the header of the files spec/lib/*/*.rb
 
 To test all services at once, you can run the following command:
 ```shell
