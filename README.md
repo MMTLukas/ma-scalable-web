@@ -1,6 +1,6 @@
 # Scalable Web Architectures - Challenge
 
-TThis documents describes how to start and test the four services of this repository. The services are:
+This documents describes how to start and test the four services of this repository. The services are:
   * Item Tracking System (Port 9292)
   * Location Management System (Port 9393)
   * Report System (Port 9494)
@@ -26,6 +26,7 @@ spec/lib/                           # contains the specs of the services in the 
 ### Tests
 
 **ATTENTION**: For this you have to start the Item Tracking, the Location Management and the User Management System. For informations how to start this services, scroll to the different sections in this README.MD or check the header of the files in spec/lib/**
+
 To test all services at once, you can run the following command:
 ```shell
 rspec

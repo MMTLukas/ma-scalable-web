@@ -86,10 +86,22 @@ describe ReportSystem do
         "address": "Urstein Sued 1",
         "id": 0
       }]
+      basic_auth = { 
+        :username => "paul", 
+        :password => "thepanther"
+      }
 
       before do
-        system('httparty -u paul:thepanther -a post -d \'{"name":"Smiths PC","location":0}\' http://localhost:9292/items')
-        system('httparty -u paul:thepanther -a post -d \'{"name":"FHS","address":"Urstein Sued 1"}\' http://localhost:9393/locations')
+        HTTParty.post("http://localhost:9292/items", {
+          :body => '{"name":"Smiths PC","location":0}',
+          :basic_auth => basic_auth
+        });
+        
+        HTTParty.post("http://localhost:9393/locations", {
+          :body => '{"name":"FHS","address":"Urstein Sued 1"}',
+          :basic_auth => basic_auth
+        });
+
         basic_authorize("paul", "thepanther")
         get '/reports/by-location'
       end
@@ -106,8 +118,13 @@ describe ReportSystem do
       end
 
       after do
-        system('httparty -u paul:thepanther -a delete http://localhost:9292/items/0')
-        system('httparty -u paul:thepanther -a delete http://localhost:9393/locations/0')
+        HTTParty.post("http://localhost:9292/items/0", {
+          :basic_auth => basic_auth
+        });
+        
+        HTTParty.post("http://localhost:9393/locations/0", {
+          :basic_auth => basic_auth
+        });
       end
     end
   end
