@@ -33,7 +33,6 @@ rspec
 ```
 This should give you an overview of serveral specs testing the services.
 
-
 ## Item Tracking System
 
 This service allows the users to store, retrieve and delete items
@@ -58,8 +57,8 @@ bundle exec rackup -o 0.0.0.0 -p 9292 config_item_tracking_system.ru
 **Try it out**
 ```shell
 httparty -v -u paul:thepanther http://localhost:9292/items
-httparty -v -u paul:thepanther -a post -d '{"name":"PC","location":"1"}' http://localhost:9292/items
-httparty -v -u paul:thepanther -a delete http://localhost:9292/items/1
+httparty -v -u paul:thepanther -a post -d '{"name":"PC","location":0}' http://localhost:9292/items
+httparty -v -u paul:thepanther -a delete http://localhost:9292/items/0
 ```
 
 ## Location Management System
@@ -87,7 +86,7 @@ bundle exec rackup -o 0.0.0.0 -p 9393 config_location_management_system.ru
 ```shell
 httparty -v -u paul:thepanther http://localhost:9393/locations
 httparty -v -u paul:thepanther -a post -d '{"name":"FH","address":"urstein"}' http://localhost:9393/locations
-httparty -v -u paul:thepanther -a delete http://localhost:9393/locations/1
+httparty -v -u paul:thepanther -a delete http://localhost:9393/locations/0
 ```
 
 ## Report System
