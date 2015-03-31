@@ -118,11 +118,11 @@ describe ReportSystem do
       end
 
       after do
-        HTTParty.post("http://localhost:9292/items/0", {
+        HTTParty.delete("http://localhost:9292/items/0", {
           :basic_auth => basic_auth
         });
         
-        HTTParty.post("http://localhost:9393/locations/0", {
+        HTTParty.delete("http://localhost:9393/locations/0", {
           :basic_auth => basic_auth
         });
       end

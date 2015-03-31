@@ -166,7 +166,7 @@ describe LocationManagementSystem do
       it 'should have deleted the location' do
         basic_authorize("paul", "thepanther")
         get "/locations"
-        expect(last_response.body).to eq(currentStorage)
+        expect(last_response.body).to eq("[]")
       end
     end
   end

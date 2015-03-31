@@ -31,7 +31,7 @@ To test all services at once, you can run the following command:
 ```shell
 rspec
 ```
-This should give you a overview of serveral specs testing the services.
+This should give you an overview of serveral specs testing the services.
 
 
 ## Item Tracking System
